@@ -1,0 +1,139 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html ng-app="helloApp">
+<head>
+<title>AngularJS </title>
+<meta charset="utf-8">
+
+<script
+	src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
+
+<script src="angularmin.js"></script>
+
+	
+	
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
+	
+	 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous"> 
+
+	<!-- Latest compiled and minified JavaScript -->
+	 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script> 
+
+	
+
+
+
+<script type="text/javascript">
+var hidden1="FALSE";
+var hidden2="FALSE";
+
+
+var helloApp = angular.module("helloApp", []);
+helloApp.controller("CompanyCtrl", function($scope) {
+$scope.companies = [
+                    { 'name':'Infosys Technologies',
+                    	'employees': 125000,
+                    	'headoffice': 'Bangalore'},
+                    	{ 'name':'Cognizant Technologies',
+	                    	'employees': 100000,
+	                    	'headoffice': 'Bangalore'},
+	                    	{ 'name':'Wipro',
+		                    	'employees': 115000,
+		                    	'headoffice': 'Bangalore'},
+		                    	{ 'name':'Tata Consultancy Services (TCS)',
+			                    	'employees': 150000,
+			                    	'headoffice': 'Bangalore'},
+			                    	{ 'name':'HCL Technologies',
+				                    	'employees': 90000,
+				                    	'headoffice': 'Noida'},
+                    ];
+
+
+/*$scope.click1=function(ind)
+{
+	
+			companies[ind].name;
+			companies[ind].employees;
+			companies[ind].headoffice;
+};*/
+
+$scope.addRow = function(name,employees,headoffice){		
+	$scope.companies.push({ 'name':name, 'employees': employees, 'headoffice':headoffice });
+
+	
+};
+$scope.removeRow = function(name){				
+		var index = -1;		
+		var comArr = eval( $scope.companies );
+		for( var i = 0; i < comArr.length; i++ ) {
+			if( comArr[i].name == name ) {
+				index = i;
+				break;
+			}
+		}
+		if( index == -1 ) {
+			alert( "Something gone wrong" );
+		}
+		$scope.companies.splice( index, 1 );		
+	};
+});
+</script>
+
+</head>
+
+<body ng-app="helloApp">                                                                                                                                                                                  
+<div class="container" ng-controller="CompanyCtrl">
+
+<form name="EmployeeForm" nonvalidate class="well" >
+			<div class="form-group">
+			<label class="control-label col-sm-2">Name</label>
+			<input class="col-sm-10" type="text" placeholder="{{abc}}" name="name" ng-required="true" ng-model="companies.name" /> <br>
+			</div>
+			<div class="form-group">
+			<label class="control-label col-sm-2">Employees</label>
+			<input class="col-sm-10"  type="number" placeholder="Enter the number of employees" name="employees" ng-required="true" ng-model="companies.employees"  /> <br>
+			</div>
+			<div class="form-group">
+			<label class="control-label col-sm-2">HeadOffice</label>
+			<input class="col-sm-10" type="text" placeholder="Enter the location"  name="headoffice" ng-required="true" ng-model="companies.headoffice" /> <br>
+			</div>
+			<input type="button" value="Save"  class="btn btn-primary" ng-click="addRow(companies.name,companies.employees,companies.headoffice)">
+			
+			
+<table class="table table-striped table-bordered">
+<thead>
+	<tr >
+		<th >Name
+		</th>
+		<th ng-show="hidden1">Employees
+		</th>
+		<th ng-show="hidden2">Head Office
+		</th>
+		<th>Action
+		</th>
+	</tr>
+	</thead>
+	<tbody>
+	
+	<tr  ng-repeat="company in companies" >
+		<td>{{company.name}}
+		</td>
+		<<td ng-show="hidden1">{{company.employees}}
+		</td>
+		<td ng-show="hidden2">{{company.headoffice}}
+		</td> 
+		<td>
+		<input type="button" value="Remove" class="btn btn-primary" ng-click="removeRow(company.name)"/>
+		</td>
+		<td>
+		<input type="button" value="Button" class="btn btn-success" >	
+		</td>
+	</tr>
+	
+	</tbody>
+</table>
+			
+</body>
+</html>
+	
